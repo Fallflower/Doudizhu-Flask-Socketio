@@ -1,0 +1,41 @@
+# Python
+*.py[cod]
+*.pyo
+*.pyd
+__pycache__/
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Flask specific
+instance/
+.venv/
+venv/
+env/
+ENV/
+venv.bak/
+*.sqlite3
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# MacOS
+.DS_Store
+
+# Linux
+*~
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+.bakup
