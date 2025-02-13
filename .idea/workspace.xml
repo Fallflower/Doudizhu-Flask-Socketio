@@ -4,83 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="732fb57d-a224-4ae2-9afa-ea58c7ecbeeb" name="Changes" comment="先搞定user类">
-      <change afterPath="$PROJECT_DIR$/static/image/2C.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/2D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/2H.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/2S.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/3C.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/3D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/3H.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/3S.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/4C.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/4D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/4H.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/4S.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/5C.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/5D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/5H.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/5S.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/6C.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/6D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/6H.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/6S.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/7C.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/7D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/7H.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/7S.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/8C.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/8D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/8H.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/8S.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/9C.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/9D.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/9H.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/9S.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/AC.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/AD.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/AH.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/AS.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/JC.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/JD.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/JH.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/JS.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/KC.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/KD.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/KH.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/KS.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/QC.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/QD.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/QH.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/QS.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/TC.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/TD.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/TH.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/TS.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/ai_profile-hq.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/ai_profile.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/bot_profile.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/exit_fullscreen_icon.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/fullscreen_icon.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/game_bcg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/gpt_profile hq.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/gpt_profile.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/menu_bcg hq.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/menu_bcg.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/poker table3 hq.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/poker table3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/rotate.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/image/yellow_back.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/menu.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/menu.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/start.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/start.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/menu.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/start.html" afterDir="false" />
+    <list default="true" id="732fb57d-a224-4ae2-9afa-ea58c7ecbeeb" name="Changes" comment="start(ok)+menu(undone)">
+      <change afterPath="$PROJECT_DIR$/static/login&amp;register.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/menu.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,6 +22,7 @@
       <list>
         <option value="Flask Main" />
         <option value="Python Script" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -109,21 +40,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Flask server.Doudizhu.executor": "Run",
-    "Python.user.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Flask server.Doudizhu.executor&quot;: &quot;Run&quot;,
+    &quot;Python.user.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Flask server.Doudizhu">
     <configuration name="user" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Doudizhu" />
@@ -191,7 +122,10 @@
       <option name="presentableId" value="Default" />
       <updated>1738645063967</updated>
       <workItem from="1738645064805" duration="17758000" />
-      <workItem from="1738826443975" duration="7269000" />
+      <workItem from="1738826443975" duration="16031000" />
+      <workItem from="1739021911084" duration="1681000" />
+      <workItem from="1739430250378" duration="2085000" />
+      <workItem from="1739432525312" duration="422000" />
     </task>
     <task id="LOCAL-00001" summary="先搞定user类">
       <option name="closed" value="true" />
@@ -201,7 +135,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738831483564</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="start(ok)+menu(undone)">
+      <option name="closed" value="true" />
+      <created>1738838068797</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1738838068797</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -210,10 +152,11 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="先搞定user类" />
-    <option name="LAST_COMMIT_MESSAGE" value="先搞定user类" />
+    <MESSAGE value="start(ok)+menu(undone)" />
+    <option name="LAST_COMMIT_MESSAGE" value="start(ok)+menu(undone)" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Doudizhu$Doudizhu.coverage" NAME="Doudizhu Coverage Results" MODIFIED="1738833926065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Doudizhu$Doudizhu.coverage" NAME="Doudizhu Coverage Results" MODIFIED="1739431346657" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Doudizhu$user.coverage" NAME="user Coverage Results" MODIFIED="1738831381402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
