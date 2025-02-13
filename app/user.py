@@ -34,10 +34,10 @@ class User:
         try:
             with open(cls.user_file, 'r') as f:
                 cls.users_list = json.load(f)
-                # for user in cls.users_list:
         except FileNotFoundError:
             with open(cls.user_file, 'w') as f:
                 json.dump(cls.users_list, f)
+        # print(cls.users_list)
 
     @classmethod
     def save(cls):
@@ -54,12 +54,17 @@ class User:
 
     @classmethod
     def register(cls, name, password):
+        for user in cls.users_list:
+            if user['name'] == name:
+                return False
         user = User(name, password)
         user.__add_user()
+        cls.save()
+        return True
 
 
-if __name__ == '__main__':
-    User.load()
-    User.register('lhy', '123456')
-    print(User.users_list)
-    User.save()
+# if __name__ == '__main__':
+#     User.load()
+#     User.register('lhy', '123456')
+#     print(User.users_list)
+#     User.save()

@@ -39,3 +39,5 @@ Thumbs.db
 ehthumbs.db
 
 .bakup
+
+app/user.json

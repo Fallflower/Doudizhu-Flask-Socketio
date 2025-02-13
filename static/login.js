@@ -1,7 +1,6 @@
-
-function turn_to_login() {
-    console.log("Turn to login page");
-    window.location.href = "/login.html"
+function turn_to(e) {
+    console.log(`Turn to ${e} page`);
+    window.location.href = `/${e}.html`
 }
 
 const post_login_info = async (e)=> {
@@ -18,22 +17,19 @@ const post_login_info = async (e)=> {
             body: formData
         });
 
-        // if (!response.ok) throw new Error("登陆失败");
-
         const result = await response.json();
         // console.log(result.code)
         if (result.status) {
-            alert(`登陆成功！欢迎 ${result.username}}`);
+            alert(`登陆成功！欢迎 ${result.User.name}`);
             window.location.replace("/");
         }
         else {
-            alert("用户名或密码错误")
-            // window.location.replace("/login.html");
-            turn_to_login()
+            alert("用户名或密码错误");
+            turn_to("login");
         }
         form.reset();
     } catch (error) {
-        console.log("Error: ", error);
-        alert("网络连接异常")
+        console.log(error);
+        alert("网络连接异常");
     }
 }

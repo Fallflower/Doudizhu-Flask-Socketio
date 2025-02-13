@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Register</h1>
-    <form action="/register" method="POST">
+    <form id="register_form">
         <label for="username">Username:</label>
         <input type="text" name="username" id="username" required><br><br>
 
@@ -20,6 +20,10 @@
         <button type="submit">Register</button>
     </form>
     <p>Already have an account? <a href="/login.html">Login here</a></p>
+    <script src="../static/register.js"></script>
+    <script>
+        document.getElementById("register_form").addEventListener("submit", post_register_info)
+    </script>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}

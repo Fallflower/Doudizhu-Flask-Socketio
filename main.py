@@ -3,7 +3,14 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for, s
 
 from app.user import User
 
-app = Flask(__name__)
+
+def create_app():
+    User.load()
+    print("Load User info Successfully")
+    return Flask(__name__)
+
+
+app = create_app()
 
 
 @app.route('/')
@@ -37,7 +44,7 @@ def deal_login():
             return jsonify({
                 "code": 200,
                 "status": True,
-                "User": usr.__to_dict__()
+                "User": usr
             }), 200
         else:
             return jsonify({
@@ -52,6 +59,18 @@ def deal_register():
     if request.method == "POST":
         username = request.form['username']
         password = request.form['password']
+        res = User.register(username, password)
+        if res:
+            return jsonify({
+                "code": 200,
+                "status": True,
+            }), 200
+        else:
+            return jsonify({
+                "code": 401,
+                "status": False,
+                "message": "Username has been taken"
+            }), 401
 
 
 if __name__ == '__main__':
