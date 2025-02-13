@@ -20,6 +20,12 @@ class User:
             'password': self.password
         }
 
+    def __to_dict__(self):
+        return {
+            'uid': str(self.uid),
+            'name': self.name,
+        }
+
     def __add_user(self):
         self.users_list.append(self.__to_dict())
 
@@ -43,8 +49,8 @@ class User:
         hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
         for user in cls.users_list:
             if user['name'] == name and user['password'] == hashed_password:
-                return True
-        return False
+                return user
+        return None
 
     @classmethod
     def register(cls, name, password):
