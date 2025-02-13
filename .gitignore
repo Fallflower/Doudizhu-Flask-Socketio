@@ -38,6 +38,6 @@ venv.bak/
 Thumbs.db
 ehthumbs.db
 
-.bakup
+*.bakup
 
 app/user.json
