@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="static/login&register.css">
 </head>
 <body>
     <h1>Login</h1>
@@ -20,16 +21,6 @@
     <script>
         document.getElementById("login_form").addEventListener("submit", post_login_info)
     </script>
-    <p>Don't have an account? <a href="/register.html">Register here</a></p>
-
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul>
-            {% for category, message in messages %}
-                <li style="color: {{ 'red' if category == 'error' else 'green' }}">{{ message }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
+    <p>Don't have an account? <a onclick="turn_to('register.html')">Register here</a></p>
 </body>
 </html>

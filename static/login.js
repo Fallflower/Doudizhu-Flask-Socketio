@@ -1,6 +1,6 @@
 function turn_to(e) {
     console.log(`Turn to ${e} page`);
-    window.location.href = `/${e}.html`
+    window.location.href = `/${e}`
 }
 
 const post_login_info = async (e)=> {
@@ -21,7 +21,7 @@ const post_login_info = async (e)=> {
         // console.log(result.code)
         if (result.status) {
             alert(`登陆成功！欢迎 ${result.User.name}`);
-            window.location.replace("/");
+            turn_to("")
         }
         else {
             alert("用户名或密码错误");
