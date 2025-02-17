@@ -2,15 +2,13 @@ from flask_socketio import emit, join_room, leave_room
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session, flash
 
 from app.user import User
+from setting import socketio, app
 
 
-def create_app():
-    User.load()
-    print("Load User info Successfully")
-    return Flask(__name__)
-
-
-app = create_app()
+@socketio.on('connect')
+def handle_connect():
+    sid = request.sid
+    print(sid)
 
 
 @app.route('/')
@@ -39,7 +37,7 @@ def deal_login():
         username = request.form['username']
         password = request.form['password']
         usr = User.check(username, password)
-        print(usr)
+        # print(usr)
         if usr:
             return jsonify({
                 "code": 200,
@@ -74,4 +72,4 @@ def deal_register():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000)
+    socketio.run(app, debug=True, allow_unsafe_werkzeug=True, host="192.168.2.188", port=5000)
