@@ -1,0 +1,101 @@
+/* 基础重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2e4c72 0%, #3a6298 100%);
+    padding: 20px;
+}
+
+h1 {
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    margin-bottom: 2rem;
+    font-size: 2.5em;
+    letter-spacing: 1px;
+}
+
+/* 表单容器 */
+form {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    width: 100%;
+    max-width: 400px;
+    transition: transform 0.3s ease;
+}
+
+/* 输入框样式 */
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-weight: 500;
+}
+
+input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 1.5rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #2e4c72;
+    box-shadow: 0 0 8px rgba(46, 76, 114, 0.2);
+}
+
+/* 按钮样式 */
+button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #2e4c72 0%, #3a6298 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #3a6298 0%, #2e4c72 100%);
+    box-shadow: 0 5px 15px rgba(46, 98, 152, 0.4);
+}
+
+/* 底部链接 */
+p {
+    margin-top: 1.5rem;
+    color: white;
+    text-align: center;
+}
+
+a {
+    color: #aac8ff;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    text-underline-style: single;
+    text-underline-color: #aac8ff;
+}

@@ -5,8 +5,8 @@ import hashlib
 
 class User:
 
-    user_file = 'app/user.json'
-    users_list = []
+    filename = 'app/user.json'
+    list = []
 
     def __init__(self, name, password):
         self.name = name
@@ -27,34 +27,34 @@ class User:
         }
 
     def __add_user(self):
-        self.users_list.append(self.__to_dict())
+        self.list.append(self.__to_dict())
 
     @classmethod
     def load(cls):
         try:
-            with open(cls.user_file, 'r') as f:
-                cls.users_list = json.load(f)
+            with open(cls.filename, 'r') as f:
+                cls.list = json.load(f)
         except FileNotFoundError:
-            with open(cls.user_file, 'w') as f:
-                json.dump(cls.users_list, f)
-        # print(cls.users_list)
+            with open(cls.filename, 'w') as f:
+                json.dump(cls.list, f)
+        # print(cls.list)
 
     @classmethod
     def save(cls):
-        with open(cls.user_file, 'w') as f:
-            json.dump(cls.users_list, f, indent=4)
+        with open(cls.filename, 'w') as f:
+            json.dump(cls.list, f, indent=4)
 
     @classmethod
     def check(cls, name, password):
         hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
-        for user in cls.users_list:
+        for user in cls.list:
             if user['name'] == name and user['password'] == hashed_password:
                 return user
         return None
 
     @classmethod
     def register(cls, name, password):
-        for user in cls.users_list:
+        for user in cls.list:
             if user['name'] == name:
                 return False
         user = User(name, password)
@@ -66,5 +66,5 @@ class User:
 # if __name__ == '__main__':
 #     User.load()
 #     User.register('lhy', '123456')
-#     print(User.users_list)
+#     print(User.list)
 #     User.save()

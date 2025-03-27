@@ -1,7 +1,4 @@
 class Player:
-
-    players_list = []
-
     def __init__(self, sid):
         self.sid = sid
         self.hand_cards = []

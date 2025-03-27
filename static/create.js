@@ -1,4 +1,4 @@
-const post_login_info = async (e)=> {
+const handle_create_room = async (e)=> {
     e.preventDefault();
 
     const form = e.target;
@@ -7,7 +7,7 @@ const post_login_info = async (e)=> {
     console.log(formData)
 
     try {
-        const response = await fetch("/api/deal_login", {
+        const response = await fetch("/api/deal_create_room", {
             method: "post",
             body: formData
         });
@@ -15,12 +15,11 @@ const post_login_info = async (e)=> {
         const result = await response.json();
         // console.log(result.code)
         if (result.status) {
-            alert(`登陆成功！欢迎 ${result.User.name}`);
+            alert(`创建成功！房间号：${result.room_id}`);
             turn_to("")
         }
         else {
-            alert("用户名或密码错误");
-            turn_to("login");
+            alert("创建失败。");
         }
         form.reset();
     } catch (error) {

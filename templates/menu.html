@@ -19,7 +19,7 @@
         <div class="button_container" id="logged_menu">
             <p class="choose_opponent_text">Welcome, {{ session.username }}</p>
             <button id="join" class="button" onclick="turn_to('login.html')">加入房间</button>
-            <button id="create" class="button" onclick="turn_to('register.html')">创建房间</button>
+            <button id="create" class="button" onclick="turn_to('createRoom.html')">创建房间</button>
             <button id="logout" class="button" onclick="location.href='/api/deal_logout'">退出登录</button>
         </div>
     {% else %}
@@ -39,7 +39,7 @@
     </div>
 
     <script src="../static/menu.js"></script>
-    <script src="../static/login.js"></script>
+    <script src="../static/common.js"></script>
 
 
 </body>

@@ -1,7 +1,7 @@
 from flask_socketio import emit, join_room, leave_room
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session, flash, session
 
-from app.user import User
+from app.user import User, uuid
 from setting import socketio, app
 
 
@@ -31,6 +31,11 @@ def register():
     return render_template('register.html')
 
 
+@app.route('/createRoom.html')
+def create_room():
+    return render_template('createRoom.html')
+
+
 @app.route('/game.html')
 def game():
     return render_template('game.html')
@@ -58,6 +63,13 @@ def deal_login():
                 "message": "Invalid Username or Password"
             }), 400
 
+
+@app.route('/api/deal_create_room', methods=['POST'])
+def deal_create_room():
+    if request.method == "POST":
+        room_id = str(uuid.uuid4())[:4]
+        room_name = request.form['roomname']
+        room_pwd = request.form['password']
 
 @app.route('/api/deal_logout')
 def deal_logout():
