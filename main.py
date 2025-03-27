@@ -1,14 +1,14 @@
 from flask_socketio import emit, join_room, leave_room
-from flask import Flask, render_template, request, jsonify, redirect, url_for, session, flash
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session, flash, session
 
 from app.user import User
 from setting import socketio, app
 
 
 @socketio.on('connect')
-def handle_connect():
+def handle_connect(msg):
     sid = request.sid
-    print(sid)
+    print("received: ", sid)
 
 
 @app.route('/')
@@ -31,6 +31,11 @@ def register():
     return render_template('register.html')
 
 
+@app.route('/game.html')
+def game():
+    return render_template('game.html')
+
+
 @app.route('/api/deal_login', methods=['POST'])
 def deal_login():
     if request.method == "POST":
@@ -39,6 +44,8 @@ def deal_login():
         usr = User.check(username, password)
         # print(usr)
         if usr:
+            session['username'] = username
+            session['logged_in'] = True
             return jsonify({
                 "code": 200,
                 "status": True,
@@ -50,6 +57,13 @@ def deal_login():
                 "status": False,
                 "message": "Invalid Username or Password"
             }), 400
+
+
+@app.route('/api/deal_logout')
+def deal_logout():
+    session.pop('username', None)
+    session.pop('logged_in', None)
+    return redirect(url_for('login'))
 
 
 @app.route('/api/deal_register', methods=['POST'])

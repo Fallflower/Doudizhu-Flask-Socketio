@@ -35,10 +35,6 @@ form {
     transition: transform 0.3s ease;
 }
 
-form:hover {
-    transform: translateY(-5px);
-}
-
 /* 输入框样式 */
 label {
     display: block;

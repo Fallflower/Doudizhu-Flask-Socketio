@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>斗地主游戏</title>
+    <link rel="stylesheet" href="static/game.css">
+</head>
+<body>
+    <div class="game-table">
+        <!-- 上家 -->
+        <div class="player-area top-player">
+            <div class="player-info">
+                <img src="avatar1.png" class="avatar">
+                <p>玩家A (剩余15张)</p>
+            </div>
+            <div class="hand-cards">
+                <!-- 其他玩家的牌背显示 -->
+                <div class="card" style="background: #1a237e;"></div>
+                <div class="card" style="background: #1a237e;"></div>
+                <div class="card" style="background: #1a237e;"></div>
+            </div>
+        </div>
+
+        <!-- 下家 -->
+        <div class="player-area bottom-player">
+            <div class="player-info">
+                <img src="avatar2.png" class="avatar">
+                <p>玩家B (剩余17张)</p>
+            </div>
+            <div class="hand-cards">
+                <div class="card" style="background: #1a237e;"></div>
+                <div class="card" style="background: #1a237e;"></div>
+                <div class="card" style="background: #1a237e;"></div>
+            </div>
+        </div>
+
+        <!-- 主玩家 -->
+        <div class="main-player">
+            <div class="hand-cards">
+                <!-- 示例手牌 -->
+                <div class="card">3♦</div>
+                <div class="card">4♠</div>
+                <div class="card">5♥</div>
+                <div class="card">J♣</div>
+                <div class="card">Q♦</div>
+                <div class="card">K♠</div>
+                <div class="card">A♥</div>
+                <div class="card">2♣</div>
+            </div>
+
+            <!-- 出牌操作栏 -->
+            <div class="action-bar">
+                <button class="action-button">出牌</button>
+                <button class="action-button">提示</button>
+                <button class="action-button">不要</button>
+            </div>
+        </div>
+
+        <!-- 已出牌区域 -->
+        <div class="played-cards">
+            <div class="card">3♦</div>
+            <div class="card">4♣</div>
+            <div class="card">5♥</div>
+        </div>
+    </div>
+</body>
+</html>

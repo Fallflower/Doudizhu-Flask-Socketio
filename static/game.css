@@ -1,0 +1,124 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #2c5f2d;
+    font-family: 'Arial', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/*!* 游戏桌面 *!*/
+/*.game-table {*/
+/*    position: relative;*/
+/*    !*width: 75%;*!*/
+/*    height: 75%;*/
+/*    background: url('../static/image/poker table3.png') center;*/
+/*}*/
+
+/* 玩家区域 */
+.player-area {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 上家 */
+.top-player {
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* 下家 */
+.bottom-player {
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* 主玩家区域 */
+.main-player {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 40vh;
+}
+
+/* 玩家信息 */
+.player-info {
+    text-align: center;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid gold;
+}
+
+/* 手牌区域 */
+.hand-cards {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    padding: 15px;
+}
+
+.card {
+    width: 80px;
+    height: 120px;
+    background: #fff;
+    border-radius: 8px;
+    border: 2px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+/* 出牌操作区 */
+.action-bar {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+}
+
+.action-button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    background: #4CAF50;
+    color: white;
+    transition: all 0.3s;
+}
+
+.action-button:hover {
+    background: #45a049;
+    transform: scale(1.1);
+}
+
+/* 已出牌区域 */
+.played-cards {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 10px;
+}
