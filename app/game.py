@@ -106,12 +106,12 @@ class Game:
 
     def _deal_cards(self):
         """发牌逻辑"""
-        for i in range(17):
-            for player in self.players:
-                self.players[player].append(self.deck.pop())
-        for player in self.players:
+        for player in self.players.keys():
+            start_index = player * 17
+            end_index = start_index + 17
+            self.players[player] = self.deck[start_index:end_index]
             self.players[player] = sort_card(self.players[player])
-        self.bottom_cards = self.deck  # 剩余3张作为底牌
+        self.bottom_cards = self.deck[-3:]  # 取最后三张作为底牌
 
     def bid_landlord(self, player, bid_level):
         """
