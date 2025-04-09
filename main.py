@@ -36,6 +36,11 @@ def create_room():
     return render_template('createRoom.html')
 
 
+@app.route('/joinRoom.html')
+def join_room():
+    return render_template('joinRoom.html')
+
+
 @app.route('/game/<room_id>')
 def game(room_id):
     if "room_id" not in session or session["room_id"] != room_id:
@@ -128,7 +133,7 @@ def deal_register():
         res = User.register(username, password)
         if res:
             return jsonify({
-                "code": 204,
+                "code": 201,
                 "status": True,
             })
         return jsonify({
@@ -167,8 +172,8 @@ def get_own_cards():
     return jsonify({
         "code": 200,
         "status": True,
-        "cards": rooms[session['room_id']]['game'].players[session['player_id']]
-    }), 200
+        "cards": rooms[session['room_id']]['game'].players[rooms[session['room_id']]['members'][session['user']['uid']]]
+    })
 
 
 if __name__ == '__main__':
