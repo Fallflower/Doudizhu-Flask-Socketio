@@ -51,19 +51,19 @@ def deal_login():
         usr = User.check(username, password)
         # print(usr)
         if usr:
-            session['username'] = username
+            session['user'] = usr
             session['logged_in'] = True
             return jsonify({
                 "code": 200,
                 "status": True,
                 "User": usr
-            }), 200
-        else:
-            return jsonify({
-                "code": 400,
-                "status": False,
-                "message": "Invalid Username or Password"
-            }), 400
+            })
+
+        return jsonify({
+            "code": 401,
+            "status": False,
+            "message": "Invalid Username or Password"
+        })
 
 
 @app.route('/api/deal_create_room', methods=['POST'])
@@ -77,7 +77,7 @@ def deal_create_room():
         session['player_id'] = 0
         rooms[room_id] = {}
         rooms[room_id]['name'] = room_name
-        rooms[room_id]['player'] = room_name
+        rooms[room_id]['members'] = {session['user']['uid']: 0}
         rooms[room_id]['game'] = Game()
         if room_pwd:
             rooms[room_id]['password'] = room_pwd
@@ -88,7 +88,7 @@ def deal_create_room():
             "code": 200,
             "status": True,
             "room_id": room_id
-        }), 200
+        })
 
 
 @app.route('/api/deal_join_room', methods=['POST'])
@@ -97,19 +97,25 @@ def deal_join_room():
         room_id = request.form['room_id']
         room_pwd = request.form['password']
 
-        real_room_pwd = rooms[room_id]['password']
-        session['room_id'] = room_id
+        if room_pwd == rooms[room_id]['password']:
+            player_nums = len(rooms[room_id]['members'])
+            rooms[room_id]['members'][session['user']['uid']] = player_nums
+            session['room_id'] = room_id
 
+            return jsonify({
+                "code": 200,
+                "status": True,
+                "room_id": room_id
+            })
         return jsonify({
-            "code": 200,
-            "status": True,
-            "room_id": room_id
-        }), 200
+            "code": 401,
+            "status": False,
+        })
 
 
 @app.route('/api/deal_logout')
 def deal_logout():
-    session.pop('username', None)
+    session.pop('user', None)
     session.pop('logged_in', None)
     return redirect(url_for('login'))
 
@@ -124,13 +130,12 @@ def deal_register():
             return jsonify({
                 "code": 204,
                 "status": True,
-            }), 204
-        else:
-            return jsonify({
-                "code": 401,
-                "status": False,
-                "message": "Username has been taken"
-            }), 401
+            })
+        return jsonify({
+            "code": 401,
+            "status": False,
+            "message": "Username has been taken"
+        })
 
 
 @app.route('/api/game_info')
@@ -148,10 +153,11 @@ def verify_room():
     """验证房间信息有效性"""
     data = request.json
     room_id = data.get('room_id')
-    player_id = data.get('player_id')
+    # player_id = data.get('player_id')
+    uid = session['user'].uid
 
     # 检查房间是否存在且包含该玩家
-    if room_id in rooms and player_id in rooms[room_id]['members']:
+    if room_id in rooms and uid in rooms[room_id]['members']:
         return jsonify({'valid': True})
     return jsonify({'valid': False})
 
