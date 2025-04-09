@@ -15,12 +15,12 @@ const post_login_info = async (e)=> {
         const result = await response.json();
         // console.log(result.code)
         if (result.status) {
-            alert(`登陆成功！欢迎 ${result.User.name}`);
-            turn_to("")
+            // alert(`登陆成功！欢迎 ${result.User.name}`);
+            turn_to("menu.html")
         }
         else {
             alert("用户名或密码错误");
-            turn_to("login");
+            turn_to("login.html");
         }
         form.reset();
     } catch (error) {

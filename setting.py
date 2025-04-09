@@ -8,3 +8,5 @@ User.load()
 app = Flask(__name__)
 app.secret_key = "FEICHANGANQUANDEMIYAO"
 socketio = SocketIO(app)
+
+rooms = {}

@@ -3,66 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>斗地主游戏</title>
-    <link rel="stylesheet" href="static/game.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='game.css') }}">
 </head>
 <body>
-    <div class="game-table">
-        <!-- 上家 -->
-        <div class="player-area top-player">
+    <!-- 第一名玩家 -->
+    <div class="top-players">
+        <div class="player-box" id="player1">
             <div class="player-info">
-                <img src="avatar1.png" class="avatar">
-                <p>玩家A (剩余15张)</p>
+                <h3>玩家A</h3>
+                <p>积分: 2500</p>
             </div>
-            <div class="hand-cards">
-                <!-- 其他玩家的牌背显示 -->
-                <div class="card" style="background: #1a237e;"></div>
-                <div class="card" style="background: #1a237e;"></div>
-                <div class="card" style="background: #1a237e;"></div>
+            <div class="cards">
+                <div class="card-back"></div>
+                <div class="card-back"></div>
+                <div class="card-back"></div>
+                <div class="card-back"></div>
             </div>
         </div>
 
-        <!-- 下家 -->
-        <div class="player-area bottom-player">
+        <!-- 第二名玩家 -->
+        <div class="player-box" id="player2">
             <div class="player-info">
-                <img src="avatar2.png" class="avatar">
-                <p>玩家B (剩余17张)</p>
+                <h3>玩家B</h3>
+                <p>积分: 2000</p>
             </div>
-            <div class="hand-cards">
-                <div class="card" style="background: #1a237e;"></div>
-                <div class="card" style="background: #1a237e;"></div>
-                <div class="card" style="background: #1a237e;"></div>
+            <div class="cards">
+                <div class="card-back"></div>
+                <div class="card-back"></div>
+                <div class="card-back"></div>
             </div>
-        </div>
-
-        <!-- 主玩家 -->
-        <div class="main-player">
-            <div class="hand-cards">
-                <!-- 示例手牌 -->
-                <div class="card">3♦</div>
-                <div class="card">4♠</div>
-                <div class="card">5♥</div>
-                <div class="card">J♣</div>
-                <div class="card">Q♦</div>
-                <div class="card">K♠</div>
-                <div class="card">A♥</div>
-                <div class="card">2♣</div>
-            </div>
-
-            <!-- 出牌操作栏 -->
-            <div class="action-bar">
-                <button class="action-button">出牌</button>
-                <button class="action-button">提示</button>
-                <button class="action-button">不要</button>
-            </div>
-        </div>
-
-        <!-- 已出牌区域 -->
-        <div class="played-cards">
-            <div class="card">3♦</div>
-            <div class="card">4♣</div>
-            <div class="card">5♥</div>
         </div>
     </div>
+
+    <!-- 牌桌区域 -->
+    <div class="table-area">
+        <h2>房间名：{{ room_name }}</h2>
+        <h2>房间号：{{ room_id }}</h2>
+        <!-- 历史出牌区域 -->
+        <div class="history-area" id="left-history">
+            <button class="start-btn" onclick="startGame('left')">开始游戏</button>
+            <div class="history-cards">
+                <div class="history-card"></div>
+                <div class="history-card"></div>
+                <div class="history-card"></div>
+            </div>
+        </div>
+
+        <div class="history-area" id="right-history">
+            <button class="start-btn" onclick="startGame('right')">开始游戏</button>
+            <div class="history-cards">
+                <div class="history-card"></div>
+                <div class="history-card"></div>
+            </div>
+        </div>
+
+        <div class="history-area" id="bottom-history">
+            <button class="start-btn" onclick="startGame('bottom')">开始游戏</button>
+            <div class="history-cards">
+                <div class="history-card"></div>
+                <div class="history-card"></div>
+                <div class="history-card"></div>
+                <div class="history-card"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 自己手牌区域 -->
+    <div class="own-area">
+        <div class="actions">
+            <button onclick="playCards()">出牌</button>
+            <button onclick="passTurn()">不出</button>
+        </div>
+        <div class="own-cards" id="own-cards"></div>
+    </div>
+
+    <!-- 提示信息 -->
+    <div class="status" id="status">请等待...</div>
+
+    <script src="../static/common.js"></script>
+    <script src="../static/game.js"></script>
 </body>
 </html>

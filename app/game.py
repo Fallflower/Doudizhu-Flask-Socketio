@@ -14,15 +14,85 @@ class CardType(Enum):
     ROCKET = 8  # 王炸
 
 
+order = {'3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'T': 10,
+         'J': 11, 'Q': 12, 'K': 13, 'A': 14, '2': 15, 'B': 16, 'R': 17}
+suits = ['S', 'H', 'D', 'C']
+ranks = ['3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A', '2']
+whole_pokers = [r + s for s in suits for r in ranks] + ['BJ', 'RJ']  # BJ=小王，RJ=大王
+
+
+def sort_card(cards):
+    return sorted(cards, key=lambda x: order[x[0]], reverse=True)
+
+
+def identify_card_type(cards):
+    """识别牌型"""
+    count = Counter(cards)
+    values = [order[c[0]] for c in cards]
+    values.sort()
+
+    # 火箭（王炸）
+    if set(cards) == {'BJ', 'RJ'}:
+        return (CardType.ROCKET, 0)
+
+    # 炸弹
+    if len(cards) == 4 and len(set(values)) == 1:
+        return (CardType.BOMB, values[0])
+
+    # 单张
+    if len(cards) == 1:
+        return (CardType.SINGLE, values[0])
+
+    # 对子
+    if len(cards) == 2 and values[0] == values[1]:
+        return (CardType.PAIR, values[0])
+
+    # 三张系列
+    if 3 in count.values():
+        triple_value = [v for v, c in count.items() if c == 3][0]
+        # 三带一
+        if len(cards) == 4:
+            return (CardType.TRIPLE_WITH_ONE, triple_value)
+        # 三带二
+        if len(cards) == 5 and 2 in count.values():
+            return (CardType.TRIPLE_WITH_TWO, triple_value)
+        # 纯三张
+        if len(cards) == 3:
+            return (CardType.TRIPLE, triple_value)
+
+    # 顺子（至少5张连续）
+    if len(values) >= 5 and all(values[i + 1] - values[i] == 1 for i in range(len(values) - 1)):
+        return (CardType.STRAIGHT, len(values))
+    return None  # 无效牌型
+
+
+def compare(last_type, current_type):
+    """比较两次出牌的大小"""
+    # 火箭最大
+    if current_type[0] == CardType.ROCKET:
+        return True
+    # 炸弹压制非火箭牌
+    if current_type[0] == CardType.BOMB:
+        if last_type[0] != CardType.BOMB:
+            return True
+        return current_type[1] > last_type[1]
+    # 同类牌比较
+    if current_type[0] == last_type[0]:
+        return current_type[1] > last_type[1]
+    return False
+
+
 class Game:
     def __init__(self):
         # 初始化牌组
+        self.winner = None
         self.players = {0: [], 1: [], 2: []}
         self.landlord = None  # 地主玩家
         self.current_player = 0  # 当前出牌玩家
         self.last_played = {}  # 上家出的牌
         self.game_phase = "deal"  # 游戏阶段：deal/bid/play/end
-        self.deck = self._create_deck()
+        self.deck = []
+        self._create_deck()
         self.discards = []  # 已出牌堆
 
         # 发牌
@@ -31,17 +101,16 @@ class Game:
 
     def _create_deck(self):
         """创建一副牌（包括大小王）"""
-        suits = ['S', 'H', 'D', 'C']
-        ranks = ['3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A', '2']
-        deck = [s + r for s in suits for r in ranks] + ['BJ', 'RJ']  # BJ=小王，RJ=大王
-        random.shuffle(deck)
-        return deck
+        self.deck = whole_pokers
+        random.shuffle(self.deck)
 
     def _deal_cards(self):
         """发牌逻辑"""
         for i in range(17):
             for player in self.players:
                 self.players[player].append(self.deck.pop())
+        for player in self.players:
+            self.players[player] = sort_card(self.players[player])
         self.bottom_cards = self.deck  # 剩余3张作为底牌
 
     def bid_landlord(self, player, bid_level):
@@ -83,7 +152,7 @@ class Game:
             self.last_played = {
                 'player': player,
                 'cards': cards,
-                'type': self._identify_card_type(cards)
+                'type': identify_card_type(cards)
             }
         self.discards.extend(cards)
 
@@ -110,78 +179,16 @@ class Game:
             return bool(self.last_played)  # 必须有人出过牌才能过
 
         # 牌型验证
-        card_type = self._identify_card_type(cards)
+        card_type = identify_card_type(cards)
         if not card_type:
             return False
 
         # 比较牌力
         if self.last_played:
             last_type = self.last_played['type']
-            if not self._compare_plays(last_type, card_type):
+            if not compare(last_type, card_type):
                 return False
         return True
-
-    def _identify_card_type(self, cards):
-        """识别牌型"""
-        count = Counter(cards)
-        values = [self._get_card_value(c) for c in cards]
-        values.sort()
-
-        # 火箭（王炸）
-        if set(cards) == {'BJ', 'RJ'}:
-            return (CardType.ROCKET, 0)
-
-        # 炸弹
-        if len(cards) == 4 and len(set(values)) == 1:
-            return (CardType.BOMB, values[0])
-
-        # 单张
-        if len(cards) == 1:
-            return (CardType.SINGLE, values[0])
-
-        # 对子
-        if len(cards) == 2 and values[0] == values[1]:
-            return (CardType.PAIR, values[0])
-
-        # 三张系列
-        if 3 in count.values():
-            triple_value = [v for v, c in count.items() if c == 3][0]
-            # 三带一
-            if len(cards) == 4:
-                return (CardType.TRIPLE_WITH_ONE, triple_value)
-            # 三带二
-            if len(cards) == 5 and 2 in count.values():
-                return (CardType.TRIPLE_WITH_TWO, triple_value)
-            # 纯三张
-            if len(cards) == 3:
-                return (CardType.TRIPLE, triple_value)
-
-        # 顺子（至少5张连续）
-        if len(values) >= 5 and all(values[i + 1] - values[i] == 1 for i in range(len(values) - 1)):
-            return (CardType.STRAIGHT, len(values))
-
-        return None  # 无效牌型
-
-    def _get_card_value(self, card):
-        """获取牌的数值"""
-        order = {'3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10,
-                 'J': 11, 'Q': 12, 'K': 13, 'A': 14, '2': 15, 'BJ': 16, 'RJ': 17}
-        return order.get(card[1:] if card.startswith('10') else order.get(card[1:]))
-
-    def _compare_plays(self, last_type, current_type):
-        """比较两次出牌的大小"""
-        # 火箭最大
-        if current_type[0] == CardType.ROCKET:
-            return True
-        # 炸弹压制非火箭牌
-        if current_type[0] == CardType.BOMB:
-            if last_type[0] != CardType.BOMB:
-                return True
-            return current_type[1] > last_type[1]
-        # 同类牌比较
-        if current_type[0] == last_type[0]:
-            return current_type[1] > last_type[1]
-        return False
 
     def get_game_state(self, player):
         """获取游戏状态（玩家视角）"""
