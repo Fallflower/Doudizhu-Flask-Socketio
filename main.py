@@ -6,9 +6,29 @@ from app.game import Game
 from setting import socketio, app, rooms
 
 
-@socketio.on('connect')
-def handle_connect():
-    print("Connected to client")
+"""
+session includes: 
+{
+    'logged_in': bool,
+    'user': User,       # 登录后
+    # 加入房间后：
+    'room_id': str(uuid.uuid4())[:4], 
+    'player_id': (0|1|2) # 0为创建者，1为第一个加入者，2为第二个
+}
+
+rooms includes:
+{
+    room_id: {
+        'name': user defined,
+        'game': Game,
+        'members': {
+            (0|1|2): user dict
+        }
+        'password': user defined
+    },
+    ...
+}
+"""
 
 
 @app.route('/')
@@ -82,7 +102,7 @@ def deal_create_room():
         session['player_id'] = 0
         rooms[room_id] = {}
         rooms[room_id]['name'] = room_name
-        rooms[room_id]['members'] = {session['user']['uid']: 0}
+        rooms[room_id]['members'] = {0: session['user']['uid']}
         rooms[room_id]['game'] = Game()
         if room_pwd:
             rooms[room_id]['password'] = room_pwd
@@ -104,8 +124,9 @@ def deal_join_room():
 
         if room_pwd == rooms[room_id]['password']:
             player_nums = len(rooms[room_id]['members'])
-            rooms[room_id]['members'][session['user']['uid']] = player_nums
+            rooms[room_id]['members'][player_nums] = session['user']
             session['room_id'] = room_id
+            session['player_id'] = player_nums
 
             return jsonify({
                 "code": 200,
@@ -143,13 +164,35 @@ def deal_register():
         })
 
 
-@app.route('/api/game_info')
-def get_game_info():
-    """获取当前用户的游戏信息"""
+@app.route('/game/get_others_name')
+def get_others_info():
+    if 'room_id' in session:
+        rid = session['room_id']
+        pid = session['player_id']
+        # 此p1 p2为逻辑上的下家与下下家，并非html中的player1 player2
+        p1id = (pid + 1) % 3
+        p2id = (pid + 2) % 3
+        p1_name = ''
+        p2_name = ''
+        try:
+            p1_name = rooms[rid]['members'][p1id]['name']
+            p2_name = rooms[p2id]['members'][p2id]['name']
+        except KeyError as e:
+            print('Error: ', e)
+        finally:
+        # p1_card_num = len(rooms[rid]['game'].players[p1id])
+        # p2_card_num = len(rooms[rid]['game'].players[p2id])
+            return jsonify({
+                "code": 200,
+                "status": True,
+                "player_names": [p2_name, p1_name],
+                # "card_nums": [p2_card_num, p1_card_num],
+            })
+
     return jsonify({
-        'room_id': session.get('room_id'),
-        'player_id': session.get('player_id'),
-        'is_host': session.get('is_host')
+        "code": 401,
+        "status": False,
+        "message": "Error: Room ID not found"
     })
 
 
@@ -172,7 +215,7 @@ def get_own_cards():
     return jsonify({
         "code": 200,
         "status": True,
-        "cards": rooms[session['room_id']]['game'].players[rooms[session['room_id']]['members'][session['user']['uid']]]
+        "cards": rooms[session['room_id']]['game'].players[session['player_id']]
     })
 
 

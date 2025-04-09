@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="732fb57d-a224-4ae2-9afa-ea58c7ecbeeb" name="Changes" comment="尝试搞搞player:{sid, ...}+socketio">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/game.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +154,7 @@
       <workItem from="1744190912505" duration="103000" />
       <workItem from="1744191025278" duration="305000" />
       <workItem from="1744191340989" duration="1098000" />
-      <workItem from="1744192748257" duration="23400000" />
+      <workItem from="1744192748257" duration="28194000" />
     </task>
     <task id="LOCAL-00001" summary="先搞定user类">
       <option name="closed" value="true" />
@@ -228,7 +230,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="尝试搞搞player:{sid, ...}+socketio" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Doudizhu$Doudizhu.coverage" NAME="Doudizhu Coverage Results" MODIFIED="1744223512079" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Doudizhu$Doudizhu.coverage" NAME="Doudizhu Coverage Results" MODIFIED="1744228215297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Doudizhu$user.coverage" NAME="user Coverage Results" MODIFIED="1738831381402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
