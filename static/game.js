@@ -1,7 +1,3 @@
-// let socket = io();
-// socket.on('connect', function () {
-//     console.log("Connected to game server");
-// })
 let ownCards = [];
 let player_names = [];
 let player_card_nums = [];
@@ -77,13 +73,13 @@ const get_others_name = async ()=> {
     }
 }
 
-window.onload = function () {
-    get_own_cards()
-        .then(None => display_cards());
-    get_others_name()
-        .then(None => render_player(0))
-        .then(None => render_player(1))
-}
+// window.onload = function () {
+//     get_own_cards()
+//         .then(None => display_cards());
+//     get_others_name()
+//         .then(None => render_player(0))
+//         .then(None => render_player(1))
+// }
 
 function playCards() {
     document.getElementById('status').style.display = 'block';

@@ -18,6 +18,7 @@ env/
 ENV/
 venv.bak/
 *.sqlite3
+flask_session/
 
 # Jupyter Notebook
 .ipynb_checkpoints/
