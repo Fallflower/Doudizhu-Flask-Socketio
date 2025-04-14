@@ -28,6 +28,12 @@ class Config:
     # SESSION_KEY_PREFIX = "FlaskR"
     # # redis的链接配置
     # REDIS_URL = "redis://localhost:6379/0"
+    """解决火狐浏览器报错：由于 Cookie “session”缺少正确的“sameSite”属性值，缺少“SameSite”或含有无效值的 Cookie 即将被视作指定为“Lax”，该 Cookie 
+    将无法发送至第三方上下文中。若您的应用程序依赖这组 Cookie 以在不同上下文中工作，请添加“SameSite=None”属性"""
+    # 允许跨站发送
+    SESSION_COOKIE_SAMESITE = "None"
+    # 必须使用HTTPS
+    SESSION_COOKIE_SECURE = True
 
 
 User.load()

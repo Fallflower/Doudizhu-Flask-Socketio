@@ -99,13 +99,13 @@ const get_own_view = async ()=> {
         alert("网络连接异常");
     }
 }
+document.addEventListener('DOMContentLoaded', async function () {
+    try {
+        view = await get_own_view();
 
-window.onload = function () {
-    get_own_view()
-        .then(result => {
-            view = result;
-        })
-    get_own_cards()
-        .then(cards => display_cards(cards));
-}
-
+        const cards = await get_own_cards();
+        display_cards(cards)
+    } catch (error) {
+        console.error("初始化失败: ", error)
+    }
+});

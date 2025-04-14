@@ -251,4 +251,5 @@ def get_own_view():
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, allow_unsafe_werkzeug=True, host="192.168.2.188", port=5000)
+    socketio.run(app, debug=True, allow_unsafe_werkzeug=True, host="192.168.2.188", port=5000,
+                 ssl_context=('localhost.pem', 'localhost-key.pem'))
