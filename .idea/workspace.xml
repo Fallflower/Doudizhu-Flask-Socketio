@@ -6,13 +6,27 @@
   <component name="ChangeListManager">
     <list default="true" id="732fb57d-a224-4ae2-9afa-ea58c7ecbeeb" name="Changes" comment="尝试搞搞player:{sid, ...}+socketio">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/setting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/join.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/join.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/create.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/create.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/game.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/game.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/join.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/join.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/join.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/join.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/menu.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/menu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/register.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/start.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/start.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/start.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/start.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/createRoom.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/createRoom.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/game.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/game.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/joinRoom.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/joinRoom.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/menu.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/start.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/start.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +177,7 @@
       <workItem from="1744288315492" duration="964000" />
       <workItem from="1744289296139" duration="2231000" />
       <workItem from="1744291890056" duration="20005000" />
-      <workItem from="1744644219485" duration="1033000" />
+      <workItem from="1744644219485" duration="2379000" />
     </task>
     <task id="LOCAL-00001" summary="先搞定user类">
       <option name="closed" value="true" />
@@ -239,7 +253,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="尝试搞搞player:{sid, ...}+socketio" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Doudizhu$Doudizhu.coverage" NAME="Doudizhu Coverage Results" MODIFIED="1744645425097" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Doudizhu$Doudizhu.coverage" NAME="Doudizhu Coverage Results" MODIFIED="1744646614734" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Doudizhu$user.coverage" NAME="user Coverage Results" MODIFIED="1738831381402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

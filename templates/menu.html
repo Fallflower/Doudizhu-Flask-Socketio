@@ -9,7 +9,7 @@
 
 
     <title>Game menu</title>
-    <link rel="stylesheet" href="static/menu.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
 
 
 </head>
@@ -34,12 +34,12 @@
 
     <div id="rotateMessage" class="portrait-mode">
         <video autoplay loop muted>
-            <source src="static/image/rotate.mp4" type="video/mp4">
+            <source src="../static/image/rotate.mp4" type="video/mp4">
         </video>
     </div>
 
-    <script src="../static/menu.js"></script>
-    <script src="../static/common.js"></script>
+    <script src="../static/js/menu.js"></script>
+    <script src="../static/js/common.js"></script>
 
 
 </body>

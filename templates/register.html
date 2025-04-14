@@ -6,7 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Register</title>
-    <link rel="stylesheet" href="static/register.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
 </head>
 <body>
     <h1>Register</h1>
@@ -23,8 +23,8 @@
         <button type="submit">Register</button>
     </form>
     <p>Already have an account? <a onclick="turn_to('login.html')"> Login here</a></p>
-    <script src="../static/register.js"></script>
-    <script src="../static/common.js"></script>
+    <script src="../static/js/register.js"></script>
+    <script src="../static/js/common.js"></script>
     <script>
         document.getElementById("register_form").addEventListener("submit", post_register_info)
     </script>

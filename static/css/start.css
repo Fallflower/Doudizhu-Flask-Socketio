@@ -19,7 +19,7 @@ iframe{
 
 #play-container {
 
-    background-image: url("../static/image/game_bcg.png");
+    background-image: url("../image/game_bcg.png");
     background-size: cover;
     background-position: center;
     /*background: black;*/

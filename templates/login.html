@@ -6,7 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Login</title>
-    <link rel="stylesheet" href="static/login.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 <body>
     <h1>Login</h1>
@@ -19,8 +19,8 @@
 
         <button type="submit">Login</button>
     </form>
-    <script src="../static/login.js"></script>
-    <script src="../static/common.js"></script>
+    <script src="../static/js/login.js"></script>
+    <script src="../static/js/common.js"></script>
     <script>
         document.getElementById("login_form").addEventListener("submit", post_login_info)
     </script>
