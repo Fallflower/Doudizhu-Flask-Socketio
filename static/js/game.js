@@ -1,15 +1,17 @@
-let ownCards = [];
-// let player_names = [];
-// let player_card_nums = [];
+let view = 0
+
+socket.on('connect', function () {
+    // console.log("触发rejoin")
+    socket.emit('rejoin_room')
+})
 
 socket.on('member_joined', (data) => {
-    console.log('fuck and this is member_joined');
-    updatePlayers(data.player_id, data.members);
+    updatePlayers(data.members);
 });
 
 const ownCardsDiv = document.getElementById('own-cards')
 
-function display_cards() {
+function display_cards(ownCards) {
     console.log(ownCards);
     ownCardsDiv.innerHTML = '';
     ownCards.forEach(card => {
@@ -22,7 +24,7 @@ function display_cards() {
 }
 
 function render_player(index, player) {
-    const playerBox = document.getElementById(`player${index+1}`)
+    const playerBox = document.getElementById(`player${index}`)
     playerBox.innerHTML = ''; // 清空原有内容
     const playerInfo = document.createElement('div');
     playerInfo.classList.add('player-info');
@@ -51,23 +53,32 @@ function render_player(index, player) {
 }
 
 
-function updatePlayers(view, members) {
-    console.log(`my view: ${view}`)
-    console.log(members)
+function updatePlayers(members) {
+    console.log(`my view: ${view}`);
+    // console.log(members);
     // 从view的视角看到的玩家信息
-    let p2i = (view + 1) % 3
-    let p1i = (view + 2) % 3
-    render_player(p2i, members[p2i]);
-    render_player(p1i, members[p1i]);
+    const p2i = (view + 1) % 3;
+    const p1i = (view + 2) % 3;
+    // console.log(p2i, p1i)
+
+    // 当p2i或p1i不存在于members时，注入虚假的信息
+    if (!(p2i in members)) {
+        members[p2i] = {name: '虚位以待', card_num: 0}; // 默认card_num为0
+    }
+    if (!(p1i in members)) {
+        members[p1i] = {name: '虚位以待', card_num: 0}; // 默认card_num为0
+    }
+
+    render_player(2, members[p2i]);
+    render_player(1, members[p1i]);
 }
 
 const get_own_cards = async ()=> {
     try {
         const response = await fetch("/game/get_own_cards");
         const result = await response.json();
-        console.log(result.code)
         if (result.status) {
-            ownCards = result.cards;
+            return result.cards;
         }
     } catch (error) {
         console.log(error);
@@ -75,13 +86,13 @@ const get_own_cards = async ()=> {
     }
 }
 
-const get_others_name = async ()=> {
+const get_own_view = async ()=> {
     try {
-        const response = await fetch("/game/get_others_name");
+        const response = await fetch("/game/get_own_view");
         const result = await response.json();
-        console.log(result.code)
         if (result.status) {
-            player_names = result.player_names;
+            console.log(result)
+            return result.player_id;
         }
     } catch (error) {
         console.log(error);
@@ -90,10 +101,11 @@ const get_others_name = async ()=> {
 }
 
 window.onload = function () {
+    get_own_view()
+        .then(result => {
+            view = result;
+        })
     get_own_cards()
-        .then(None => display_cards());
-    // get_others_name()
-    //     .then(None => render_player(0))
-    //     .then(None => render_player(1))
+        .then(cards => display_cards(cards));
 }
 

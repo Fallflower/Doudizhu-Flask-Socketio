@@ -5,7 +5,6 @@ from app.user import User, uuid
 from app.game import Game
 from setting import socketio, app, rooms
 
-
 """
 session includes: 
 {
@@ -87,16 +86,7 @@ def handle_create_room(data):
 
     emit('room_created', {
         'room_id': room_id,
-        # 'members': rooms[room_id]['members'],
-        # 'player_id': session['player_id'],
-        # 'status': True
     })
-    join_room(room_id)
-    emit('member_joined', {
-        'player_id': session['player_id'],
-        'members': rooms[room_id]['members']
-    }, room=room_id)
-    print("YESYESYES")
 
 
 @socketio.on('join_room')
@@ -107,6 +97,11 @@ def handle_join_room(data):
     if room_id not in rooms or password != rooms[room_id]['password']:
         emit('join_failed', {'message': 'Invalid RoomID or Password'})
         return
+    # 判断是否已在房间中
+    if 'player_id' in session \
+            and session['player_id'] in rooms[room_id]['members'] \
+            and session['user'] == rooms[room_id]['members'][session['player_id']]:
+        emit('join_success', {'room_id': room_id})
     # 分配玩家id
     player_id = len(rooms[room_id]['members'])
     if player_id >= 3:
@@ -118,16 +113,20 @@ def handle_join_room(data):
     session['room_id'] = room_id
     session['player_id'] = player_id
 
-    join_room(room_id)
     emit('join_success', {
         'room_id': room_id,
-        # 'player_id': player_id,
-        # 'members': rooms[room_id]['members'],
-        # 'status': True
     })
+
+
+@socketio.on('rejoin_room')  # 由于从joinRoom页面跳转到game页面的socket连接变化，进入game页面重连
+def handle_rejoin_room():
+    room_id = session['room_id']
+    player_id = session['player_id']
     members = rooms[room_id]['members']
     for key, _ in rooms[room_id]['members'].items():
         members[key]['card_num'] = len(rooms[room_id]['game'].players[key])
+    print("room: ", room_id, "\tmembers: ", members)
+    join_room(room_id)
     emit('member_joined', {
         'player_id': player_id,
         'members': members
@@ -194,54 +193,6 @@ def deal_login():
         })
 
 
-# @app.route('/api/deal_create_room', methods=['POST'])
-# def deal_create_room():
-#     if request.method == "POST":
-#         room_id = str(uuid.uuid4())[:4]
-#         room_name = request.form['roomname']
-#         room_pwd = request.form['password']
-#
-#         session['room_id'] = room_id
-#         session['player_id'] = 0
-#         rooms[room_id] = {}
-#         rooms[room_id]['name'] = room_name
-#         rooms[room_id]['members'] = {0: session['user']['uid']}
-#         rooms[room_id]['game'] = Game()
-#         if room_pwd:
-#             rooms[room_id]['password'] = room_pwd
-#         else:
-#             rooms[room_id]['password'] = ''
-#
-#         return jsonify({
-#             "code": 200,
-#             "status": True,
-#             "room_id": room_id
-#         })
-#
-#
-# @app.route('/api/deal_join_room', methods=['POST'])
-# def deal_join_room():
-#     if request.method == "POST":
-#         room_id = request.form['room_id']
-#         room_pwd = request.form['password']
-#
-#         if room_pwd == rooms[room_id]['password']:
-#             player_nums = len(rooms[room_id]['members'])
-#             rooms[room_id]['members'][player_nums] = session['user']
-#             session['room_id'] = room_id
-#             session['player_id'] = player_nums
-#
-#             return jsonify({
-#                 "code": 200,
-#                 "status": True,
-#                 "room_id": room_id
-#             })
-#         return jsonify({
-#             "code": 401,
-#             "status": False,
-#         })
-
-
 @app.route('/api/deal_logout')
 def deal_logout():
     session.pop('user', None)
@@ -267,38 +218,6 @@ def deal_register():
         })
 
 
-@app.route('/game/get_others_name')
-def get_others_info():
-    if 'room_id' in session:
-        rid = session['room_id']
-        pid = session['player_id']
-        # 此p1 p2为逻辑上的下家与下下家，并非html中的player1 player2
-        p1id = (pid + 1) % 3
-        p2id = (pid + 2) % 3
-        p1_name = ''
-        p2_name = ''
-        try:
-            p1_name = rooms[rid]['members'][p1id]['name']
-            p2_name = rooms[p2id]['members'][p2id]['name']
-        except KeyError as e:
-            print('Error: ', e)
-        finally:
-        # p1_card_num = len(rooms[rid]['game'].players[p1id])
-        # p2_card_num = len(rooms[rid]['game'].players[p2id])
-            return jsonify({
-                "code": 200,
-                "status": True,
-                "player_names": [p2_name, p1_name],
-                # "card_nums": [p2_card_num, p1_card_num],
-            })
-
-    return jsonify({
-        "code": 401,
-        "status": False,
-        "message": "Error: Room ID not found"
-    })
-
-
 @app.route('/api/verify_room', methods=['POST'])
 def verify_room():
     """验证房间信息有效性"""
@@ -319,6 +238,15 @@ def get_own_cards():
         "code": 200,
         "status": True,
         "cards": rooms[session['room_id']]['game'].players[session['player_id']]
+    })
+
+
+@app.route('/game/get_own_view')
+def get_own_view():
+    return jsonify({
+        "code": 200,
+        "status": True,
+        "player_id": session['player_id']
     })
 
 

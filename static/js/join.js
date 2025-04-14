@@ -11,7 +11,5 @@ const handle_join_room = (e)=> {
     console.log(roomData);
 
     socket.emit('join_room', roomData);
-
-
     form.reset();
 }
