@@ -33,39 +33,40 @@ rooms includes:
 
 @socketio.on('connect')
 def handle_connect():
-    if 'user' not in session or 'room_id' not in session or session['room_id'] not in rooms:
-        return
-    join_room(session['room_id'])
-    emit('room_update', {
-        'members': rooms[session['room_id']]['members'],
-        'room_name': rooms[session['room_id']]['name'],
-    }, room=session['room_id'])
+    # if 'user' not in session or 'room_id' not in session or session['room_id'] not in rooms:
+    #     return
+    # join_room(session['room_id'])
+    # emit('room_update', {
+    #     'members': rooms[session['room_id']]['members'],
+    #     'room_name': rooms[session['room_id']]['name'],
+    # }, room=session['room_id'])
+    print('connected')
 
 
 @socketio.on('disconnect')
 def handle_disconnect():
-    if 'room_id' not in session:
-        return
-
-    room_id = session['room_id']
-    player_id = session['player_id']
-
-    if room_id in rooms:
-        if player_id in rooms[room_id]['members']:
-            del rooms[room_id]['members'][player_id]
-
-            # 如果房间为空则删除房间
-            if not rooms[room_id]['members']:
-                del rooms[room_id]
-            else:
-                emit('member_left', {
-                    'player_id': player_id,
-                    'remaining_members': rooms[room_id]['members'],
-                })
-
-    leave_room(room_id)
-    session.pop('room_id', None)
-    session.pop('player_id', None)
+    # if 'room_id' not in session:
+    #     return
+    #
+    # room_id = session['room_id']
+    # player_id = session['player_id']
+    #
+    # if room_id in rooms:
+    #     if player_id in rooms[room_id]['members']:
+    #         del rooms[room_id]['members'][player_id]
+    #
+    #         # 如果房间为空则删除房间
+    #         if not rooms[room_id]['members']:
+    #             del rooms[room_id]
+    #         else:
+    #             emit('member_left', {
+    #                 'player_id': player_id,
+    #                 'remaining_members': rooms[room_id]['members'],
+    #             })
+    print('disconnected')
+    # leave_room(room_id)
+    # session.pop('room_id', None)
+    # session.pop('player_id', None)
 
 
 @socketio.on('create_room')
@@ -83,8 +84,6 @@ def handle_create_room(data):
     # 更新会话
     session['room_id'] = room_id
     session['player_id'] = 0
-    # session.modified = True
-    # print(session['room_id'])
 
     emit('room_created', {
         'room_id': room_id,
@@ -94,10 +93,10 @@ def handle_create_room(data):
     })
     join_room(room_id)
     emit('member_joined', {
-        'new_member': session['user'],
         'player_id': session['player_id'],
-        'total_members': 1
+        'members': rooms[room_id]['members']
     }, room=room_id)
+    print("YESYESYES")
 
 
 @socketio.on('join_room')
@@ -122,14 +121,16 @@ def handle_join_room(data):
     join_room(room_id)
     emit('join_success', {
         'room_id': room_id,
-        'player_id': player_id,
-        'members': rooms[room_id]['members'],
-        'status': True
+        # 'player_id': player_id,
+        # 'members': rooms[room_id]['members'],
+        # 'status': True
     })
+    members = rooms[room_id]['members']
+    for key, _ in rooms[room_id]['members'].items():
+        members[key]['card_num'] = len(rooms[room_id]['game'].players[key])
     emit('member_joined', {
-        'new_member': session['user'],
         'player_id': player_id,
-        'total_members': len(rooms[room_id]['members'])
+        'members': members
     }, room=room_id)
 
 
@@ -165,9 +166,6 @@ def _join_room():
 
 @app.route('/game/<room_id>')
 def game(room_id):
-    # for test
-    print(room_id)
-    print(session['room_id'])
     if "room_id" not in session or session["room_id"] != room_id:
         return redirect(url_for('menu'))
     return render_template('game.html', room_id=room_id, room_name=rooms[room_id]['name'])
@@ -306,7 +304,7 @@ def verify_room():
     """验证房间信息有效性"""
     data = request.json
     room_id = data.get('room_id')
-    # player_id = data.get('player_id')
+    # player_id = data.get('player_id'
     uid = session['user'].uid
 
     # 检查房间是否存在且包含该玩家

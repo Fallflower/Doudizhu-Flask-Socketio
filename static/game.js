@@ -1,7 +1,11 @@
 let ownCards = [];
-let player_names = [];
-let player_card_nums = [];
+// let player_names = [];
+// let player_card_nums = [];
 
+socket.on('member_joined', (data) => {
+    console.log('fuck and this is member_joined');
+    updatePlayers(data.player_id, data.members);
+});
 
 const ownCardsDiv = document.getElementById('own-cards')
 
@@ -17,14 +21,14 @@ function display_cards() {
     });
 }
 
-function render_player(index) {
+function render_player(index, player) {
     const playerBox = document.getElementById(`player${index+1}`)
     playerBox.innerHTML = ''; // 清空原有内容
     const playerInfo = document.createElement('div');
     playerInfo.classList.add('player-info');
 
     const playerName = document.createElement('h3');
-    playerName.textContent = player_names[index];
+    playerName.textContent = player.name;
     playerInfo.appendChild(playerName);
 
     // const playerScore = document.createElement('p');
@@ -36,14 +40,26 @@ function render_player(index) {
     const cardsContainer = document.createElement('div');
     cardsContainer.classList.add('cards');
 
-    for (let i = 0; i < player_card_nums[index]; i++) {
-        const cardBack = document.createElement('div');
+    for (let i = 0; i < player.card_num; i++) {
+        const cardBack = document.createElement('img');
         cardBack.classList.add('card-back');
+        cardBack.src = '../static/image/yellow_back.png'
+        cardBack.alt = 'card-back';
         cardsContainer.appendChild(cardBack);
     }
     playerBox.appendChild(cardsContainer);
 }
 
+
+function updatePlayers(view, members) {
+    console.log(`my view: ${view}`)
+    console.log(members)
+    // 从view的视角看到的玩家信息
+    let p2i = (view + 1) % 3
+    let p1i = (view + 2) % 3
+    render_player(p2i, members[p2i]);
+    render_player(p1i, members[p1i]);
+}
 
 const get_own_cards = async ()=> {
     try {
@@ -73,25 +89,11 @@ const get_others_name = async ()=> {
     }
 }
 
-// window.onload = function () {
-//     get_own_cards()
-//         .then(None => display_cards());
-//     get_others_name()
-//         .then(None => render_player(0))
-//         .then(None => render_player(1))
-// }
-
-function playCards() {
-    document.getElementById('status').style.display = 'block';
-    setTimeout(() => {
-        document.getElementById('status').style.display = 'none';
-    }, 1000);
+window.onload = function () {
+    get_own_cards()
+        .then(None => display_cards());
+    // get_others_name()
+    //     .then(None => render_player(0))
+    //     .then(None => render_player(1))
 }
 
-function passTurn() {
-    document.getElementById('status').innerText = '跳过本轮';
-    document.getElementById('status').style.display = 'block';
-    setTimeout(() => {
-        document.getElementById('status').style.display = 'none';
-    }, 1000);
-}
