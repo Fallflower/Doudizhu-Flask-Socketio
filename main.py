@@ -120,6 +120,12 @@ def handle_join_room(data):
 
 @socketio.on('rejoin_room')  # 由于从joinRoom页面跳转到game页面的socket连接变化，进入game页面重连
 def handle_rejoin_room():
+    if 'room_id' not in session:
+        return
+    elif session['room_id'] not in rooms:
+        return
+    if 'player_id' not in session:
+        return
     room_id = session['room_id']
     player_id = session['player_id']
     members = rooms[room_id]['members']
@@ -251,5 +257,12 @@ def get_own_view():
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, allow_unsafe_werkzeug=True, host="192.168.2.188", port=5000,
-                 ssl_context=('localhost.pem', 'localhost-key.pem'))
+    socketio.run(
+        app,
+        debug=True,
+        allow_unsafe_werkzeug=True,
+        host="0.0.0.0",
+        port=5000,
+        # certfile='localhost.pem',
+        # keyfile='localhost-key.pem'
+    )

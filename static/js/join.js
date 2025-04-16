@@ -13,3 +13,5 @@ const handle_join_room = (e)=> {
     socket.emit('join_room', roomData);
     form.reset();
 }
+
+document.getElementById("join_form").addEventListener("submit", handle_join_room)

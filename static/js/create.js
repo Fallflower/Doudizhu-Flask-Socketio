@@ -13,3 +13,5 @@ const handle_create_room = (e)=> {
     socket.emit('create_room', roomData);
     form.reset();
 }
+
+document.getElementById("create_form").addEventListener("submit", handle_create_room)

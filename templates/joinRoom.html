@@ -6,9 +6,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>JoinRoom</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/join.css') }}">
 </head>
 <body>
+    <!-- 添加返回菜单按钮 -->
+    <button id="back-to-menu" onclick="turn_to('menu.html')">返回菜单</button>
     <h1>Join</h1>
     <form id="join_form">
         <label for="roomname">房间号:</label>
@@ -21,8 +23,5 @@
     </form>
     <script src="../static/js/join.js"></script>
     <script src="../static/js/common.js"></script>
-    <script>
-        document.getElementById("join_form").addEventListener("submit", handle_join_room)
-    </script>
 </body>
 </html>

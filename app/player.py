@@ -1,7 +1,8 @@
-class Player:
-    def __init__(self, sid):
-        self.sid = sid
-        self.hand_cards = []
+from dataclasses import dataclass, asdict
 
-    def __join_room__(self, room_id):
-        pass
+
+@dataclass
+class Player:
+    name: str
+    score: int
+    card_num: int

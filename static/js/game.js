@@ -1,9 +1,6 @@
 let view = 0
 
-socket.on('connect', function () {
-    // console.log("触发rejoin")
-    socket.emit('rejoin_room')
-})
+window.unload()
 
 socket.on('member_joined', (data) => {
     updatePlayers(data.members);

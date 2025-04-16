@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 <body>
+    <!-- 添加返回菜单按钮 -->
+    <button id="back-to-menu" onclick="turn_to('menu.html')">返回菜单</button>
     <h1>Create</h1>
     <form id="create_form">
         <label for="roomname">房间名:</label>
@@ -19,10 +21,8 @@
 
         <button type="submit">创建</button>
     </form>
+    <button onclick="turn_to('menu.html')">返回菜单</button>
     <script src="../static/js/create.js"></script>
     <script src="../static/js/common.js"></script>
-    <script>
-        document.getElementById("create_form").addEventListener("submit", handle_create_room)
-    </script>
 </body>
 </html>

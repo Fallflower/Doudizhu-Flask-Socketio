@@ -1,5 +1,10 @@
 const socket = io();
 
+socket.on('connect', function () {
+    console.log("尝试rejoin")
+    socket.emit('rejoin_room')
+})
+
 socket.on('room_created', (data) => {
     turn_to(`game/${data.room_id}`)
 });
