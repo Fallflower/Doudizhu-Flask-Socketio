@@ -18,8 +18,10 @@ session includes:
 rooms includes:
 {
     room_id: {
-        'name': user defined,
-        'game': Game,
+        'status':
+        'ready': [], # list of bool
+        'name': str, # user defined,
+        'game': Game, # Game class instance
         'members': {
             (0|1|2): user dict
         }
@@ -75,6 +77,7 @@ def handle_create_room(data):
     room_id = str(uuid.uuid4())[:4]
 
     rooms[room_id] = {
+        'ready': [False, False, False],
         'name': room_name,
         'password': password,
         'members': {0: session['user']},
@@ -98,11 +101,6 @@ def handle_join_room(data):
     if room_id not in rooms or password != rooms[room_id]['password']:
         emit('join_failed', {'message': 'Invalid RoomID or Password'})
         return
-    # 判断是否已在房间中
-    if 'player_id' in session \
-            and session['player_id'] in rooms[room_id]['members'] \
-            and session['user'] == rooms[room_id]['members'][session['player_id']]:
-        emit('join_success', {'room_id': room_id})
     # 分配玩家id
     player_id = len(rooms[room_id]['members'])
     if player_id >= 3:
@@ -127,7 +125,7 @@ def handle_rejoin_room(data):
         session['in_room'] = False
         return
     elif session['room_id'] not in rooms:
-        session['in_room'] = False  # 防止浏览器报错了老session值
+        session['in_room'] = False  # 防止浏览器使用保存的老session值
         return
     if 'player_id' not in session:
         return
@@ -138,14 +136,30 @@ def handle_rejoin_room(data):
         members[key]['card_num'] = len(rooms[room_id]['game'].players[key])
     print("room: ", room_id, "\tmembers: ", members)
     join_room(room_id)
-    emit('member_joined', {
-        'player_id': player_id,
-        'members': members
-    }, room=room_id)
+    emit('member_joined', room=room_id)
     if data['apply']:
         emit('join_success', {
             'room_id': room_id,
         })
+
+
+@socketio.on('leave_room')
+def handle_leave_room():
+    pass
+
+
+@socketio.on('change_ready')
+def handle_change_ready():
+    session['ready'] = not session.get('ready', False)
+    rooms[session['room_id']]['ready'][session['player_id']] = session['ready']
+
+    # status = 'unready' if session['ready'] else 'ready'
+    # if all(rooms[session['room_id']]['ready']):
+    #     status = 'gaming'
+
+    emit('status_update', {
+        'status': rooms[session['room_id']]['ready']
+    }, room=session['room_id'])
 
 
 @app.route('/')
@@ -180,10 +194,10 @@ def _join_room():
 
 @app.route('/game/<room_id>')
 def game(room_id):
-    # if "room_id" not in session or session["room_id"] != room_id:
-    #     return redirect(url_for('menu'))
-    if "in_room" in session and session['in_room']:
-        return render_template('game.html', room_id=room_id, room_name=rooms[room_id]['name'])
+    if "room_id" not in session or session["room_id"] != room_id:
+        return redirect(url_for('menu'))
+    # if "in_room" in session and session['in_room']:
+    return render_template('game.html', room_id=room_id, room_name=rooms[room_id]['name'])
 
 
 @app.route('/api/deal_login', methods=['POST'])
@@ -257,12 +271,37 @@ def get_own_cards():
     })
 
 
+@app.route('/game/get_own_history_cards')
+def get_own_history_cards():
+    return jsonify({
+        "code": 200,
+        "status": True,
+        "cards": []
+    })
+
+
 @app.route('/game/get_own_view')
 def get_own_view():
     return jsonify({
         "code": 200,
         "status": True,
         "player_id": session['player_id']
+    })
+
+
+@app.route('/game/get_members')
+def get_members():
+    room_id = session['room_id']
+    members = rooms[room_id]['members'].copy()  # 注意是.copy() 很关键
+    for key in [0, 1, 2]:
+        if key in members:
+            members[key]['card_num'] = len(rooms[room_id]['game'].players[key])
+        else:
+            members[key] = {'name': '虚位以待', 'score': 0, 'card_num': 0}
+    return jsonify({
+        "code": 200,
+        "status": True,
+        "members": members
     })
 
 
