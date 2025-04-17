@@ -2,7 +2,9 @@ const socket = io();
 
 socket.on('connect', function () {
     console.log("尝试rejoin")
-    socket.emit('rejoin_room')
+    socket.emit('rejoin_room', {
+        'apply': false
+    })
 })
 
 socket.on('room_created', (data) => {

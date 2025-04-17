@@ -1,6 +1,5 @@
 let view = 0
 
-window.unload()
 
 socket.on('member_joined', (data) => {
     updatePlayers(data.members);

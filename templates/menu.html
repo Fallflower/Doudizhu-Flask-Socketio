@@ -18,8 +18,12 @@
     {% if session.get('logged_in') %}
         <div class="button_container" id="logged_menu">
             <p class="choose_opponent_text" id="welcome_with_name">Welcome, {{ session.user.name }}</p>
-            <button id="join" class="button" onclick="turn_to('joinRoom.html')">加入房间</button>
-            <button id="create" class="button" onclick="turn_to('createRoom.html')">创建房间</button>
+            {% if session.get('in_room') %}
+                <button id="back" class="button" onclick="apply_go_back()">回到房间</button>
+            {% else %}
+                <button id="join" class="button" onclick="turn_to('joinRoom.html')">加入房间</button>
+                <button id="create" class="button" onclick="turn_to('createRoom.html')">创建房间</button>
+            {% endif %}
             <button id="logout" class="button" onclick="location.href='/api/deal_logout'">退出登录</button>
         </div>
     {% else %}
