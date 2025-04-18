@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="732fb57d-a224-4ae2-9afa-ea58c7ecbeeb" name="Changes" comment="尝试搞搞player:{sid, ...}+socketio">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/game.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/game.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/game.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/game.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +61,7 @@
     "Python.user.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/WorkSpace/PyProjs/Doudizhu",
+    "last_opened_file_path": "D:/gitRepo/Texas-Holdem-Poker-Web-App-master",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -223,7 +219,7 @@
       <workItem from="1744288315492" duration="964000" />
       <workItem from="1744289296139" duration="2231000" />
       <workItem from="1744291890056" duration="20005000" />
-      <workItem from="1744644219485" duration="71320000" />
+      <workItem from="1744644219485" duration="74262000" />
     </task>
     <task id="LOCAL-00001" summary="先搞定user类">
       <option name="closed" value="true" />
@@ -302,6 +298,6 @@
     <SUITE FILE_PATH="coverage/Doudizhu$PythonRunFlask.coverage" NAME="PythonRunFlask Coverage Results" MODIFIED="1744694750670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="D:\WorkSpace\PyProjs\Doudizhu" />
     <SUITE FILE_PATH="coverage/Doudizhu$Doudizhu.coverage" NAME="Doudizhu Coverage Results" MODIFIED="1744693928828" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Doudizhu$user.coverage" NAME="user Coverage Results" MODIFIED="1738831381402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Doudizhu$main.coverage" NAME="main Coverage Results" MODIFIED="1744911038305" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Doudizhu$main.coverage" NAME="main Coverage Results" MODIFIED="1744911140489" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

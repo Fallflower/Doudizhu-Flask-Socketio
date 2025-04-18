@@ -37,7 +37,7 @@ function create_cards_div(ownCards, class_name) {
     div.innerHTML = '';
     ownCards.forEach(card => {
         const img = document.createElement('img');
-        img.src = `../static/image/${card}.png`;
+        img.src = `../static/image/pokers/${card}.png`;
         img.alt = card;  // 这里设置图片的替代文本为卡片名称
         img.classList.add(class_name);  // 添加类属性以便样式控制
         div.appendChild(img);
@@ -51,13 +51,13 @@ function update_own_area(status) {
     const button = document.createElement('button');
     button.classList.add('start-btn');
     button.onclick = switch_ready;
-    if (status === 'unready') {
+    if (myStatus === 'unready') {
         button.textContent = " 准 备 ";
         ownStatusArea.appendChild(button);
-    } else if (status === 'ready') {
+    } else if (myStatus === 'ready') {
         button.textContent = "取消准备";
         ownStatusArea.appendChild(button);
-    } else if (status === 'gaming') {
+    } else if (myStatus === 'gaming') {
         get_own_history_cards()
             .then(historyCards => create_cards_div(historyCards, 'own-card'))
             .then(cardsDiv => {
