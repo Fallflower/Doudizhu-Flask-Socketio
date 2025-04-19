@@ -31,37 +31,16 @@
     <div class="table-area">
         <h2>房间名：{{ room_name }}</h2>
         <h2>房间号：{{ room_id }}</h2>
+        <button class="start-btn" onclick="leave_room()">离开房间</button>
         <!-- 历史出牌区域 -->
         <div class="history-area" id="player1-status">
-            <button class="start-btn" onclick="startGame('left')">开始游戏</button>
-            <div class="history-cards">
-                <div class="history-card"></div>
-                <div class="history-card"></div>
-                <div class="history-card"></div>
-            </div>
         </div>
 
         <div class="history-area" id="player2-status">
-            <button class="start-btn" onclick="startGame('right')">开始游戏</button>
-            <div class="history-cards">
-                <div class="history-card"></div>
-                <div class="history-card"></div>
-            </div>
         </div>
 
         <div class="history-area" id="own-status">
             <button class="start-btn" onclick="switch_ready()"> 准 备 </button>
-{#            {% if session.get('ready') %}#}
-{#                <button class="start-btn" onclick="switch_ready()">取消准备</button>#}
-{#            {% else %}#}
-{#                <button class="start-btn" onclick="switch_ready()">准备</button>#}
-{#            {% endif %}#}
-{#            <div class="history-cards">#}
-{#                <div class="history-card"></div>#}
-{#                <div class="history-card"></div>#}
-{#                <div class="history-card"></div>#}
-{#                <div class="history-card"></div>#}
-{#            </div>#}
         </div>
     </div>
     <!-- 自己手牌区域 -->

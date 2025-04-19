@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for, s
 
 from app.user import User, uuid
 from app.game import Game
+from app.player import Player
 from setting import socketio, app, rooms
 
 """
@@ -13,6 +14,8 @@ session includes:
     # 加入房间后：
     'room_id': str(uuid.uuid4())[:4], 
     'player_id': (0|1|2) # 创建者为0，第一个加入者为1，第二个为2
+    'in_room': bool, # 真正处于游戏房间页面时为True
+    'player': Player class instance
 }
 
 rooms includes:
@@ -130,7 +133,6 @@ def handle_rejoin_room(data):
     if 'player_id' not in session:
         return
     room_id = session['room_id']
-    player_id = session['player_id']
     members = rooms[room_id]['members']
     for key, _ in rooms[room_id]['members'].items():
         members[key]['card_num'] = len(rooms[room_id]['game'].players[key])
@@ -145,7 +147,14 @@ def handle_rejoin_room(data):
 
 @socketio.on('leave_room')
 def handle_leave_room():
-    pass
+    if session['in_room']:
+        session['in_room'] = False
+        room_id = session.pop('room_id', None)
+        player_id = session.pop('player_id', None)
+        rooms[room_id]['members'].pop(player_id)
+        rooms[room_id]['ready'][player_id] = False
+        leave_room(room_id)
+        emit('member_left', room=room_id)
 
 
 @socketio.on('change_ready')
@@ -293,11 +302,15 @@ def get_own_view():
 def get_members():
     room_id = session['room_id']
     members = rooms[room_id]['members'].copy()  # 注意是.copy() 很关键
-    for key in [0, 1, 2]:
-        if key in members:
+    if all(rooms[room_id]['ready']):  # 处于游戏中
+        for key in [0, 1, 2]:
             members[key]['card_num'] = len(rooms[room_id]['game'].players[key])
-        else:
-            members[key] = {'name': '虚位以待', 'score': 0, 'card_num': 0}
+    else:
+        for key in [0, 1, 2]:
+            if key in members:
+                members[key]['card_num'] = 0
+            else:
+                members[key] = {'name': '虚位以待', 'score': 0, 'card_num': 0}
     return jsonify({
         "code": 200,
         "status": True,

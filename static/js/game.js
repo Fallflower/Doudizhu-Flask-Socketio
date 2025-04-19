@@ -8,6 +8,12 @@ socket.on('member_joined', () => {
         .then(members => updatePlayersInfo(members))
 });
 
+socket.on('member_left', () => {
+    console.log("成员离开")
+    get_members()
+        .then(members => updatePlayersInfo(members))
+});
+
 socket.on('status_update', (data) => {
     console.log("状态更新");
 
@@ -22,11 +28,18 @@ socket.on('status_update', (data) => {
     if (allReady) {
         myStatus = 'gaming';
     }
-    update_own_area([]);
+    update_own_area();
+    // update_others_area();
 });
 
 const switch_ready = () => {
     socket.emit('change_ready');
+}
+
+
+const leave_room = () => {
+    socket.emit('leave_room');
+    turn_to('menu.html');
 }
 
 
@@ -45,7 +58,7 @@ function create_cards_div(ownCards, class_name) {
     return div
 }
 
-function update_own_area(status) {
+function update_own_area() {
     const ownStatusArea = document.getElementById('own-status')
     ownStatusArea.innerHTML = '';
     const button = document.createElement('button');
@@ -72,7 +85,6 @@ function update_own_area(status) {
                 ownArea.appendChild(cardsDiv)
             })
     }
-
 }
 
 function render_player_info(index, player) {
@@ -113,7 +125,7 @@ function render_player_cards(index, player) {
     }
     playerBox.appendChild(cardsContainer);
 }
-function render_status(index) {
+function render_status_area(index, player) {
     const statusArea = document.getElementById(`player${index}-status`)
     statusArea.innerHTML = '';
 
@@ -129,6 +141,8 @@ function updatePlayersInfo(members) {
     // console.log(p2i, p1i)
     render_player_info(2, members[p2i]);
     render_player_info(1, members[p1i]);
+    render_player_cards(2, members[p2i]);
+    render_player_cards(1, members[p1i]);
 }
 
 const get_own_cards = async ()=> {
