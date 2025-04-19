@@ -6,3 +6,6 @@ class Player:
     name: str
     score: int
     card_num: int
+    history_cards: list
+
+

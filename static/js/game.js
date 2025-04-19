@@ -1,5 +1,5 @@
 let view;
-let myStatus;
+let status_list = [];
 
 
 socket.on('member_joined', () => {
@@ -16,18 +16,7 @@ socket.on('member_left', () => {
 
 socket.on('status_update', (data) => {
     console.log("状态更新");
-
-    if (data.status[view]) {
-        myStatus = 'ready';
-    } else {
-        myStatus = 'unready';
-    }
-
-    // Check if all statuses are true
-    const allReady = data.status.every(status => status);
-    if (allReady) {
-        myStatus = 'gaming';
-    }
+    status_list = data.status
     update_own_area();
     // update_others_area();
 });
@@ -64,14 +53,8 @@ function update_own_area() {
     const button = document.createElement('button');
     button.classList.add('start-btn');
     button.onclick = switch_ready;
-    if (myStatus === 'unready') {
-        button.textContent = " 准 备 ";
-        ownStatusArea.appendChild(button);
-    } else if (myStatus === 'ready') {
-        button.textContent = "取消准备";
-        ownStatusArea.appendChild(button);
-    } else if (myStatus === 'gaming') {
-        get_own_history_cards()
+    if (status_list.every(s => s)) {
+        get_history_cards(view)
             .then(historyCards => create_cards_div(historyCards, 'own-card'))
             .then(cardsDiv => {
                 cardsDiv.classList.add('own-cards')
@@ -84,6 +67,12 @@ function update_own_area() {
                 let ownArea = document.getElementById('own-area');
                 ownArea.appendChild(cardsDiv)
             })
+    } else if (status_list[view]) {
+        button.textContent = "取消准备";
+        ownStatusArea.appendChild(button);
+    } else {
+        button.textContent = " 准 备 ";
+        ownStatusArea.appendChild(button);
     }
 }
 
@@ -158,9 +147,14 @@ const get_own_cards = async ()=> {
     }
 }
 
-const get_own_history_cards = async ()=> {
+const get_history_cards = async (player_id)=> {
     try {
-        const response = await fetch("/game/get_own_history_cards");
+        const response = await fetch("/game/get_history_cards", {
+            method: 'post',
+            body: {
+                player_id: player_id,
+            }
+        });
         const result = await response.json();
         if (result.status) {
             return result.cards;

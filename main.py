@@ -79,11 +79,14 @@ def handle_create_room(data):
     password = data.get('password', '')
     room_id = str(uuid.uuid4())[:4]
 
+    user = session['user']
+    session['player'] = Player(user['name'], 0, 0)
+
     rooms[room_id] = {
         'ready': [False, False, False],
         'name': room_name,
         'password': password,
-        'members': {0: session['user']},
+        'members': {0: session['player']},
         'game': Game(),
     }
     # 更新会话
@@ -133,10 +136,6 @@ def handle_rejoin_room(data):
     if 'player_id' not in session:
         return
     room_id = session['room_id']
-    members = rooms[room_id]['members']
-    for key, _ in rooms[room_id]['members'].items():
-        members[key]['card_num'] = len(rooms[room_id]['game'].players[key])
-    print("room: ", room_id, "\tmembers: ", members)
     join_room(room_id)
     emit('member_joined', room=room_id)
     if data['apply']:
@@ -148,9 +147,12 @@ def handle_rejoin_room(data):
 @socketio.on('leave_room')
 def handle_leave_room():
     if session['in_room']:
+        # 删除session中信息
         session['in_room'] = False
         room_id = session.pop('room_id', None)
         player_id = session.pop('player_id', None)
+        session.pop('player', None)
+        # 删除rooms中信息
         rooms[room_id]['members'].pop(player_id)
         rooms[room_id]['ready'][player_id] = False
         leave_room(room_id)
@@ -159,12 +161,14 @@ def handle_leave_room():
 
 @socketio.on('change_ready')
 def handle_change_ready():
+    room_id = session['room_id']
+    player_id = session['player_id']
     session['ready'] = not session.get('ready', False)
-    rooms[session['room_id']]['ready'][session['player_id']] = session['ready']
+    rooms[room_id]['ready'][player_id] = session['ready']
 
-    # status = 'unready' if session['ready'] else 'ready'
-    # if all(rooms[session['room_id']]['ready']):
-    #     status = 'gaming'
+    if all(rooms[room_id]['ready']): # from now on, game starts
+        for key in [0, 1, 2]:
+            rooms[room_id]['members'][key]['card_num'] = 17
 
     emit('status_update', {
         'status': rooms[session['room_id']]['ready']
@@ -257,20 +261,6 @@ def deal_register():
         })
 
 
-@app.route('/api/verify_room', methods=['POST'])
-def verify_room():
-    """验证房间信息有效性"""
-    data = request.json
-    room_id = data.get('room_id')
-    # player_id = data.get('player_id'
-    uid = session['user'].uid
-
-    # 检查房间是否存在且包含该玩家
-    if room_id in rooms and uid in rooms[room_id]['members']:
-        return jsonify({'valid': True})
-    return jsonify({'valid': False})
-
-
 @app.route('/game/get_own_cards')
 def get_own_cards():
     return jsonify({
@@ -280,13 +270,15 @@ def get_own_cards():
     })
 
 
-@app.route('/game/get_own_history_cards')
+@app.route('/game/get_history_cards', methods=['post'])
 def get_own_history_cards():
-    return jsonify({
-        "code": 200,
-        "status": True,
-        "cards": []
-    })
+    if request.method == "POST":
+        data = request.json
+        return jsonify({
+            "code": 200,
+            "status": True,
+            "cards": []
+        })
 
 
 @app.route('/game/get_own_view')
